@@ -1,8 +1,7 @@
-const { createApp } = require('./app');
+const app = require('./app');
 
-const port = Number(process.env.PORT) || 3000;
-const app = createApp();
+const PORT = process.env.PORT || 3000;
 
-app.listen(port, '0.0.0.0', () => {
-  console.log(`QueueWise listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`QueueWise running on port ${PORT}`);
 });
