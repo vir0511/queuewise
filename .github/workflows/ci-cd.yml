@@ -47,11 +47,13 @@ jobs:
         run: docker rm -f queuewise-smoke
 
   deploy:
-    name: Render deploy
     needs: build
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
     steps:
-    - name: Deploy to Render
-  run: |
-    curl -fsS -X POST "${{ secrets.RENDER_DEPLOY_HOOK }}&ref=${{ github.sha }}"
+      - name: Deploy to Render
+        env:
+          DEPLOY_URL: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          curl -fsS -X POST "${DEPLOY_URL}&ref=${{ github.sha }}"
