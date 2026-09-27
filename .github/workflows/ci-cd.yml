@@ -60,4 +60,4 @@ jobs:
             echo "ERROR: RENDER_DEPLOY_HOOK_URL is not available."
             exit 1
           fi
-      curl --fail --show-error --silent --retry 3 --request POST "$RENDER_DEPLOY_HOOK_URL"
+          curl -fsS -X POST "{DEPLOY_URL}&ref=${{ github.sha }}"
