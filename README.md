@@ -441,3 +441,4 @@ Docker could not be executed in the current build environment because Docker is 
 ## Verification note for the supplied project archive
 
 The source code, configuration, tests, Dockerfile and CI/CD definitions were statically reviewed in the build environment used to prepare this archive. The environment used for archive preparation does not have access to the public npm registry or Docker daemon, so a genuine npm lockfile could not be generated here and Docker/GitHub/Render execution could not be claimed as locally verified. On a normal development machine, run `npm install` once to generate the genuine `package-lock.json`, then use `npm ci` for reproducible installs as required by the CCA 2 workflow.
+Assessment Version: QueueWise CCA 2
