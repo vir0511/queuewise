@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QueueWise | Smart Campus Queue Monitor</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <p class="eyebrow">CSE30040 · Cloud Computing & DevOps</p>
+      <h1>QueueWise</h1>
+      <p class="tagline">Smart Campus Queue Monitor</p>
+      <p class="intro">See current queue conditions and help fellow students plan their next campus stop.</p>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Live reports</p>
+          <h2>Campus queue status</h2>
+        </div>
+        <a class="api-link" href="/api/queues">View JSON API</a>
+      </div>
+
+      <% if (success) { %>
+        <div class="alert success" role="status">Queue report added successfully.</div>
+      <% } %>
+
+      <% if (errors.length) { %>
+        <div class="alert error" role="alert">
+          <strong>Please fix the following:</strong>
+          <ul>
+            <% errors.forEach(error => { %><li><%= error %></li><% }) %>
+          </ul>
+        </div>
+      <% } %>
+
+      <% if (queues.length === 0) { %>
+        <div class="empty-state">No queue reports yet. Add the first one from the form.</div>
+      <% } else { %>
+        <div class="queue-list">
+          <% queues.slice().reverse().forEach(queue => { %>
+            <article class="queue-card">
+              <div class="queue-top">
+                <div>
+                  <h3><%= queue.location %></h3>
+                  <p class="muted"><%= new Date(queue.reportedAt).toLocaleString('en-IN') %></p>
+                </div>
+                <span class="status status-<%= queue.status.toLowerCase().replace(' ', '-') %>"><%= queue.status %></span>
+              </div>
+              <div class="metrics">
+                <div><span>People</span><strong><%= queue.peopleCount %></strong></div>
+                <div><span>Wait</span><strong><%= queue.estimatedWait %> min</strong></div>
+              </div>
+              <% if (queue.description) { %><p class="description"><%= queue.description %></p><% } %>
+            </article>
+          <% }) %>
+        </div>
+      <% } %>
+    </section>
+
+    <aside class="panel form-panel">
+      <p class="eyebrow">Quick report</p>
+      <h2>Report a queue</h2>
+      <p class="muted">Your report is stored by the server and status is calculated automatically from the people count.</p>
+      <form action="/queues" method="post">
+        <label for="location">Location <span>*</span></label>
+        <input id="location" name="location" value="<%= form.location || '' %>" minlength="2" maxlength="60" required>
+
+        <label for="peopleCount">People currently waiting <span>*</span></label>
+        <input id="peopleCount" name="peopleCount" type="number" min="0" max="500" step="1" value="<%= form.peopleCount || '' %>" required>
+
+        <label for="estimatedWait">Estimated wait (minutes) <span>*</span></label>
+        <input id="estimatedWait" name="estimatedWait" type="number" min="0" max="300" step="1" value="<%= form.estimatedWait || '' %>" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" maxlength="300" rows="4" placeholder="Optional details about the queue"><%= form.description || '' %></textarea>
+
+        <button type="submit">Add queue report</button>
+      </form>
+      <p class="form-note">Status rules: 0–5 Low · 6–15 Moderate · 16–30 Busy · 31+ Very Busy</p>
+    </aside>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>QueueWise · Dynamic SSR application</span>
+      <span>Running commit: <code><%= commit %></code></span>
+    </div>
+  </footer>
+</body>
+</html>

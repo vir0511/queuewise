@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "location": "Central Library",
+    "peopleCount": 8,
+    "estimatedWait": 12,
+    "description": "Main issue desk queue.",
+    "status": "Moderate",
+    "reportedAt": "2026-09-23T14:00:00.000Z"
+  },
+  {
+    "id": 2,
+    "location": "Main Canteen",
+    "peopleCount": 24,
+    "estimatedWait": 20,
+    "description": "Lunch counter is currently busy.",
+    "status": "Busy",
+    "reportedAt": "2026-09-23T14:05:00.000Z"
+  },
+  {
+    "id": 3,
+    "location": "Student Help Desk",
+    "peopleCount": 10,
+    "estimatedWait": 15,
+    "description": "Assessment testing",
+    "status": "Moderate",
+    "reportedAt": "2026-09-27T10:01:08.513Z"
+  }
+]

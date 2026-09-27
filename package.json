@@ -1,0 +1,23 @@
+{
+  "name": "queuewise",
+  "version": "1.0.0",
+  "description": "QueueWise - Smart Campus Queue Monitor for CSE30040 CCA 2",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=22 <23"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.35.0",
+    "globals": "^16.4.0"
+  }
+}
